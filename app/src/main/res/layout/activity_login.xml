@@ -36,5 +36,4 @@
         android:text="@string/label_login"
         android:onClick="showTopics"
         />
-
 </LinearLayout>
