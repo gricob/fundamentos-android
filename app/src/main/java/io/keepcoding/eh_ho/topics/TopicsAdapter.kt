@@ -1,9 +1,11 @@
-package io.keepcoding.eh_ho
+package io.keepcoding.eh_ho.topics
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import io.keepcoding.eh_ho.R
+import io.keepcoding.eh_ho.Topic
+import io.keepcoding.eh_ho.inflate
 import kotlinx.android.synthetic.main.item_topic.view.*
 import java.lang.IllegalArgumentException
 
@@ -25,8 +27,7 @@ class TopicsAdapter(val topicClickListener: ((Topic) -> Unit)? = null) : Recycle
     }
 
     override fun onCreateViewHolder(list: ViewGroup, viewType: Int): TopicHolder {
-        val view =
-            LayoutInflater.from(list.context).inflate(R.layout.item_topic, list, false)
+        val view = list.inflate(R.layout.item_topic)
         return TopicHolder(view)
     }
 
