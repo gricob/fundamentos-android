@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.Topic
@@ -47,6 +48,7 @@ class TopicsFragment : Fragment() {
         adapter.setTopics(TopicsRepo.topics)
 
         listTopics.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        listTopics.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listTopics.adapter = adapter
     }
 
