@@ -1,4 +1,4 @@
-package io.keepcoding.eh_ho
+package io.keepcoding.eh_ho.data
 
 object TopicsRepo {
     val topics: MutableList<Topic> = mutableListOf()

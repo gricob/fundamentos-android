@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.keepcoding.eh_ho.*
+import io.keepcoding.eh_ho.data.Topic
+import io.keepcoding.eh_ho.data.UserRepo
+import io.keepcoding.eh_ho.login.LoginActivity
 
 const val TRANSACTION_CREATE_TOPIC = "create_topic"
 
@@ -17,7 +20,7 @@ class TopicsActivity : AppCompatActivity(),
 
         if (isFirsTimeCreated(savedInstanceState))
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, TopicsFragment())
+                .add(R.id.fragmentContainer, TopicsFragment())
                 .commit()
     }
 
@@ -29,7 +32,7 @@ class TopicsActivity : AppCompatActivity(),
 
     override fun onCreateTopic() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, CreateTopicFragment())
+            .replace(R.id.fragmentContainer, CreateTopicFragment())
             .addToBackStack(TRANSACTION_CREATE_TOPIC)
             .commit()
     }
@@ -41,5 +44,15 @@ class TopicsActivity : AppCompatActivity(),
     override fun onTopicCreated() {
         supportFragmentManager.popBackStack()
 
+    }
+
+    override fun onLogout() {
+        //Borrar datos
+        UserRepo.logout(this.applicationContext)
+
+        //Ir a actividad inicial
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
