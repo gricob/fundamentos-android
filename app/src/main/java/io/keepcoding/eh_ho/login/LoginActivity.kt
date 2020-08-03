@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
+import io.keepcoding.eh_ho.BuildConfig
 import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.RequestError
 import io.keepcoding.eh_ho.data.SignInModel
+import io.keepcoding.eh_ho.data.SignUpModel
 import io.keepcoding.eh_ho.data.UserRepo
 import io.keepcoding.eh_ho.topics.TopicsActivity
 import io.keepcoding.eh_ho.isFirsTimeCreated
@@ -64,7 +66,7 @@ class LoginActivity : AppCompatActivity(),
     private fun handleError(error: RequestError) {
         if (error.messageResId != null)
             Snackbar.make(container, error.messageResId, Snackbar.LENGTH_LONG).show()
-        else if(error.message != null)
+        else if (error.message != null)
             Snackbar.make(container, error.message, Snackbar.LENGTH_LONG).show()
         else
             Snackbar.make(container, R.string.error_default, Snackbar.LENGTH_LONG).show()
@@ -76,8 +78,19 @@ class LoginActivity : AppCompatActivity(),
             .commit()
     }
 
-    override fun onSignUp() {
+    override fun onSignUp(signUpModel: SignUpModel) {
         enableLoading()
+        UserRepo.signUp(this.applicationContext,
+            signUpModel,
+            {
+                enableLoading(false)
+                Snackbar.make(container, R.string.message_sign_up, Snackbar.LENGTH_LONG).show()
+            },
+            {
+                enableLoading(false)
+                handleError(it)
+            }
+        )
     }
 
     private fun enableLoading(enabled: Boolean = true) {
@@ -89,18 +102,4 @@ class LoginActivity : AppCompatActivity(),
             viewLoading.visibility = View.INVISIBLE
         }
     }
-
-    /*
-    private fun simulateLoading(signInModel: SignInModel) {
-        val runnable = Runnable {
-            Thread.sleep(5000)
-            viewLoading.post {
-                UserRepo.signIn(this.applicationContext, signInModel.username)
-                showTopics()
-            }
-        }
-
-        Thread(runnable).start()
-    }
-     */
 }

@@ -16,6 +16,13 @@ class TopicsFragment : Fragment() {
 
     var topicsInteractionListener: TopicsInteractionListener? = null
 
+    private val topicsAdapter: TopicsAdapter by lazy {
+        val adapter = TopicsAdapter {
+            this.topicsInteractionListener?.onShowPosts(it)
+        }
+        adapter
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -37,27 +44,44 @@ class TopicsFragment : Fragment() {
         return container?.inflate(R.layout.fragment_topics)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val adapter = TopicsAdapter {
-            this.topicsInteractionListener?.onShowPosts(it)
-        }
 
         buttonCreate.setOnClickListener {
             this.topicsInteractionListener?.onCreateTopic()
         }
 
-        adapter.setTopics(TopicsRepo.topics)
+        topicsAdapter.setTopics(TopicsRepo.topics)
 
         listTopics.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         listTopics.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        listTopics.adapter = adapter
+        listTopics.adapter = topicsAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_topics, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadTopics()
+    }
+
+    private fun loadTopics() {
+        context?.let {
+            TopicsRepo
+                .getTopics(it.applicationContext,
+                    {
+                        topicsAdapter.setTopics(it)
+                    },
+                    {
+                       // TODO: Manejo de errores
+                    }
+                )
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
