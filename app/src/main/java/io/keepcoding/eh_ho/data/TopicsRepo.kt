@@ -52,7 +52,6 @@ object TopicsRepo {
             Request.Method.POST,
             ApiRoutes.createTopic(),
             model.toJson(),
-            username,
             {
                 onSuccess(model)
             },
@@ -78,7 +77,8 @@ object TopicsRepo {
                         RequestError(it)
 
                 onError(requestError)
-            }
+            },
+            username
         )
 
         ApiRequestQueue
