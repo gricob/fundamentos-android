@@ -37,13 +37,20 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         buttonSignUp.setOnClickListener {
-            val model = SignUpModel(
-                inputUsername.text.toString(),
-                inputEmail.text.toString(),
-                inputPassword.text.toString()
-            )
 
-            signUpInteractionListener?.onSignUp(model)
+            if (SignUpValidator()
+                    .validate(
+                        SignUpForm(inputUsername, inputEmail, inputPassword, inputConfirmPassword)
+                    )
+            ) {
+                val model = SignUpModel(
+                    inputUsername.text.toString(),
+                    inputEmail.text.toString(),
+                    inputPassword.text.toString()
+                )
+
+                signUpInteractionListener?.onSignUp(model)
+            }
         }
 
         labelCreateAccount.setOnClickListener {

@@ -41,12 +41,14 @@ class SignInFragment: Fragment() {
         }
 
         buttonLogin.setOnClickListener {
-            val signInModel = SignInModel(
-                inputUsername.text.toString(),
-                inputPassword.text.toString()
-            )
+            if (SignInValidator().validate(SignInForm(inputUsername, inputPassword))) {
+                val signInModel = SignInModel(
+                    inputUsername.text.toString(),
+                    inputPassword.text.toString()
+                )
 
-            signInInteractionListener?.onSignIn(signInModel)
+                signInInteractionListener?.onSignIn(signInModel)
+            }
         }
     }
 
