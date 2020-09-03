@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".topics.TopicsFragment">
 
-    <include
-        android:id="@+id/viewLoading"
-        layout="@layout/view_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listTopics"
         android:layout_width="match_parent"
@@ -27,4 +21,17 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
         app:srcCompat="@drawable/ic_add" />
+
+    <include
+        android:id="@+id/viewLoading"
+        layout="@layout/view_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="invisible" />
+
+    <include
+        android:id="@+id/viewError"
+        layout="@layout/view_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

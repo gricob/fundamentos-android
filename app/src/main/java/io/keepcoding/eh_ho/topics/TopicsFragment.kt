@@ -11,6 +11,7 @@ import io.keepcoding.eh_ho.data.Topic
 import io.keepcoding.eh_ho.data.TopicsRepo
 import io.keepcoding.eh_ho.inflate
 import kotlinx.android.synthetic.main.fragment_topics.*
+import kotlinx.android.synthetic.main.view_error.*
 
 class TopicsFragment : Fragment() {
 
@@ -52,6 +53,10 @@ class TopicsFragment : Fragment() {
             this.topicsInteractionListener?.onCreateTopic()
         }
 
+        buttonRetry.setOnClickListener {
+            this.loadTopics()
+        }
+
         topicsAdapter.setTopics(TopicsRepo.topics)
 
         listTopics.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -71,18 +76,17 @@ class TopicsFragment : Fragment() {
     }
 
     private fun loadTopics() {
-        setLoading()
+        setActiveView(ActiveView.LOADING)
 
         context?.let {
             TopicsRepo
                 .getTopics(it.applicationContext,
                     {
-                        setLoading(false)
+                        setActiveView(ActiveView.LIST)
                         topicsAdapter.setTopics(it)
                     },
                     {
-                        setLoading(false)
-                       // TODO: Manejo de errores
+                        setActiveView(ActiveView.ERROR)
                     }
                 )
         }
@@ -107,11 +111,19 @@ class TopicsFragment : Fragment() {
         fun onShowPosts(topic: Topic)
     }
 
-    private fun setLoading(loading: Boolean = true) {
-        if (loading) {
-            viewLoading.visibility = View.VISIBLE
-        } else {
-            viewLoading.visibility = View.INVISIBLE
+    private fun setActiveView(activeView: ActiveView) {
+        viewLoading.visibility = View.INVISIBLE
+        viewError.visibility = View.INVISIBLE
+
+        when (activeView) {
+            ActiveView.LOADING -> viewLoading.visibility = View.VISIBLE
+            ActiveView.ERROR -> viewError.visibility = View.VISIBLE
         }
+    }
+
+    enum class ActiveView {
+        LOADING,
+        ERROR,
+        LIST
     }
 }
