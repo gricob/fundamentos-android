@@ -71,13 +71,17 @@ class TopicsFragment : Fragment() {
     }
 
     private fun loadTopics() {
+        setLoading()
+
         context?.let {
             TopicsRepo
                 .getTopics(it.applicationContext,
                     {
+                        setLoading(false)
                         topicsAdapter.setTopics(it)
                     },
                     {
+                        setLoading(false)
                        // TODO: Manejo de errores
                     }
                 )
@@ -103,4 +107,11 @@ class TopicsFragment : Fragment() {
         fun onShowPosts(topic: Topic)
     }
 
+    private fun setLoading(loading: Boolean = true) {
+        if (loading) {
+            viewLoading.visibility = View.VISIBLE
+        } else {
+            viewLoading.visibility = View.INVISIBLE
+        }
+    }
 }

@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".topics.TopicsFragment">
 
+    <include
+        android:id="@+id/viewLoading"
+        layout="@layout/view_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listTopics"
         android:layout_width="match_parent"
