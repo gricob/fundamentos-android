@@ -64,8 +64,7 @@ class TopicsFragment : Fragment() {
         listTopics.adapter = topicsAdapter
 
         swipeRefreshTopics.setOnRefreshListener {
-            loadTopics()
-            swipeRefreshTopics.isRefreshing = false
+            loadTopics(false)
         }
     }
 
@@ -80,8 +79,9 @@ class TopicsFragment : Fragment() {
         loadTopics()
     }
 
-    private fun loadTopics() {
-        setActiveView(ActiveView.LOADING)
+    private fun loadTopics(showLoading: Boolean = true) {
+        if (showLoading)
+            setActiveView(ActiveView.LOADING)
 
         context?.let {
             TopicsRepo
@@ -120,6 +120,7 @@ class TopicsFragment : Fragment() {
         viewLoading.visibility = View.INVISIBLE
         viewError.visibility = View.INVISIBLE
         swipeRefreshTopics.visibility = View.INVISIBLE
+        swipeRefreshTopics.isRefreshing = false
 
         when (activeView) {
             ActiveView.LOADING -> viewLoading.visibility = View.VISIBLE

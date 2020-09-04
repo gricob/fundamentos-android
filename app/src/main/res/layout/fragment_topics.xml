@@ -5,26 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".topics.TopicsFragment">
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeRefreshTopics"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listTopics"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshTopics"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listTopics"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/buttonCreate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="32dp"
-        app:srcCompat="@drawable/ic_add" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                app:layout_anchorGravity="bottom|right|end"
+                android:layout_margin="16dp"
+                app:layout_behavior="io.keepcoding.eh_ho.behaviors.ScrollAwareFABBehavior"
+                app:srcCompat="@drawable/ic_add" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <include
         android:id="@+id/viewLoading"
