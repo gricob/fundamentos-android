@@ -62,6 +62,11 @@ class TopicsFragment : Fragment() {
         listTopics.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         listTopics.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listTopics.adapter = topicsAdapter
+
+        swipeRefreshTopics.setOnRefreshListener {
+            loadTopics()
+            swipeRefreshTopics.isRefreshing = false
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -114,10 +119,12 @@ class TopicsFragment : Fragment() {
     private fun setActiveView(activeView: ActiveView) {
         viewLoading.visibility = View.INVISIBLE
         viewError.visibility = View.INVISIBLE
+        swipeRefreshTopics.visibility = View.INVISIBLE
 
         when (activeView) {
             ActiveView.LOADING -> viewLoading.visibility = View.VISIBLE
             ActiveView.ERROR -> viewError.visibility = View.VISIBLE
+            else -> swipeRefreshTopics.visibility = View.VISIBLE
         }
     }
 
