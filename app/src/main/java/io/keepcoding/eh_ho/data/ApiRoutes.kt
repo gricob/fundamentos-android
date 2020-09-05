@@ -24,6 +24,13 @@ object ApiRoutes {
             .build()
             .toString()
 
+    fun getTopic(id: String) =
+        uriBuilder()
+            .appendPath("t")
+            .appendPath("${id}.json")
+            .build()
+            .toString()
+
     fun createTopic() =
         uriBuilder()
             .appendPath("posts.json")

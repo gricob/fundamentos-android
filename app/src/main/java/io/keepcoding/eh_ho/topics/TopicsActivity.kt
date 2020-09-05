@@ -7,6 +7,8 @@ import io.keepcoding.eh_ho.*
 import io.keepcoding.eh_ho.data.Topic
 import io.keepcoding.eh_ho.data.UserRepo
 import io.keepcoding.eh_ho.login.LoginActivity
+import io.keepcoding.eh_ho.topic.EXTRA_TOPIC_ID
+import io.keepcoding.eh_ho.topic.TopicActivity
 
 const val TRANSACTION_CREATE_TOPIC = "create_topic"
 
@@ -25,7 +27,7 @@ class TopicsActivity : AppCompatActivity(),
     }
 
     private fun goToPosts(topic: Topic) {
-        val intent = Intent(this, PostsActivity::class.java)
+        val intent = Intent(this, TopicActivity::class.java)
         intent.putExtra(EXTRA_TOPIC_ID, topic.id)
         startActivity(intent)
     }

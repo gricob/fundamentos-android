@@ -94,3 +94,39 @@ data class Topic(
         return TimeOffset(0, Calendar.MINUTE)
     }
 }
+
+data class Post(
+    val author: String,
+    val content: String,
+    val publishedAt: Date
+) {
+    companion object {
+        fun parsePostsList(response: JSONObject): List<Post> {
+            val objectList = response.getJSONObject("post_stream")
+                .getJSONArray("posts")
+
+            val posts = mutableListOf<Post>()
+
+            for (i in 0 until objectList.length()) {
+                val parsedPost = this.parsePost(objectList.getJSONObject(i))
+                posts.add(parsedPost)
+            }
+
+            return posts
+        }
+
+        fun parsePost(jsonObject: JSONObject): Post {
+            val date = jsonObject.getString("created_at")
+                .replace("Z", "+0000")
+
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+            val dateFormatted = dateFormat.parse(date) ?: Date()
+
+            return Post(
+                author = jsonObject.getString("display_username").toString(),
+                content = jsonObject.getString("cooked").toString(),
+                publishedAt = dateFormatted
+            )
+        }
+    }
+}
