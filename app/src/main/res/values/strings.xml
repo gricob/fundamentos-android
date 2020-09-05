@@ -10,12 +10,16 @@
     <string name="label_sign_in">Sign in</string>
     <string name="hint_email">Email</string>
     <string name="label_retry">Retry</string>
+    <string name="label_title">Title</string>
+    <string name="label_body">Body</string>
+    <string name="hint_post_body">Write your post here</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_title">Title</string>
     <string name="hint_content">Content</string>
     <string name="hint_author">Author</string>
     <string name="label_send">Send</string>
+    <string name="label_create_post">Create post</string>
     <string name="error_empty">This field cannot be empty</string>
 
     <plurals name="years">
@@ -52,6 +56,7 @@
     <string name="message_sign_up">Please check your email to finish the process</string>
     <string name="error_duplicated_topic">Title has been already used</string>
     <string name="label_creating_topic">Creating Topic</string>
+    <string name="label_creating_post">Creating Post</string>
 
 
 </resources>

@@ -3,4 +3,5 @@
     <string name="app_name">Eh-Ho</string>
     <string name="hint_username">Usuario</string>
     <string name="label_retry">Reintentar</string>
+    <string name="label_create_post">Crear post</string>
 </resources>

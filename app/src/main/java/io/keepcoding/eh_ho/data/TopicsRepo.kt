@@ -23,6 +23,8 @@ object TopicsRepo {
             null,
             {
                 val list = Topic.parseTopicsList(it)
+                this.topics.clear()
+                this.topics.addAll(list)
                 onSuccess(list)
             },
             {
